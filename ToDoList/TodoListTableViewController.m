@@ -38,15 +38,15 @@
 }
 
 - (void)loadInitialData{
-//    ToDoItem *item1 = [[ToDoItem alloc] init];
-//    item1.itemName = @"Buy Bananas";
-//    [self.toDoItems addObject:item1];
-//    ToDoItem *item2 = [[ToDoItem alloc] init];
-//    item2.itemName = @"Implement ajax call";
-//    [self.toDoItems addObject:item2];
-//    ToDoItem *item3 = [[ToDoItem alloc] init];
-//    item3.itemName = @"Cats";
-//    [self.toDoItems addObject:item3];
+    ToDoItem *item1 = [[ToDoItem alloc] init];
+    item1.itemName = @"Buy Bananas";
+    [self.toDoItems addObject:item1];
+    ToDoItem *item2 = [[ToDoItem alloc] init];
+    item2.itemName = @"Implement ajax call";
+    [self.toDoItems addObject:item2];
+    ToDoItem *item3 = [[ToDoItem alloc] init];
+    item3.itemName = @"Cats";
+    [self.toDoItems addObject:item3];
     
 }
 
@@ -123,10 +123,13 @@
 }
 
 -(void)updateTask:(NSInteger)index{
-    NSLog(@"%@",self.toDoItems);
+
     ToDoItem *tappedItem = [self.toDoItems objectAtIndex: index];
     tappedItem.completed = !tappedItem.completed;
-    NSString * stringURL =  [NSString stringWithFormat:@"http://localhost:3000/tasks/%i?name=%@&completed=%i", tappedItem.identifier, tappedItem.itemName, tappedItem.completed ];
+    NSString *escapedItemName = [tappedItem.itemName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString * stringURL =  [NSString stringWithFormat:@"http://localhost:3000/tasks/%i?name=%@&completed=%i", tappedItem.identifier, escapedItemName, tappedItem.completed ];
+    NSLog(@"id of tapped item: %i", tappedItem.identifier);
+    NSLog(@"url: %@", stringURL);
     NSURL *url = [NSURL URLWithString:stringURL];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"PUT"];
@@ -190,8 +193,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+       //[tableView deselectRowAtIndexPath:indexPath animated:NO];
+
     [self updateTask: indexPath.row];
+    for (int i=0; i < [self.toDoItems count]; i++){
+        ToDoItem *current = [self.toDoItems objectAtIndex:i];
+        NSLog(@"name: %@, completed: %i", current.itemName, current.completed);
+        
+    }
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     
 }

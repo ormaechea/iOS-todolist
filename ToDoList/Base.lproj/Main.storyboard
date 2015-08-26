@@ -63,12 +63,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oz2-qi-O8R">
-                                <rect key="frame" x="263" y="122" width="46" height="30"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -81,7 +75,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="7Wg-yg-Y2O" userLabel="Item">
                             <connections>
-                                <action selector="saveButton:" destination="DeR-pI-Q5z" id="Qju-zh-6cj"/>
+                                <action selector="fireMethod:" destination="DeR-pI-Q5z" id="GWa-Yg-sZz"/>
                                 <segue destination="FrD-gM-c5U" kind="unwind" unwindAction="unwindToList:" id="GRT-TC-4Dn"/>
                             </connections>
                         </barButtonItem>
